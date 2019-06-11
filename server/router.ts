@@ -1,7 +1,7 @@
 import * as express from 'express'
 import * as path from 'path'
 
-import { game } from './app'
+import { game } from './core'
 import { UUID } from './util/uuid'
 import { IRoom } from './model/room'
 import { ICard } from './model/card'

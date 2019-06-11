@@ -18,7 +18,7 @@ class Room implements IRoom {
   public cardStack: ICard[]
   public dealer: IDealer
 
-  constructor (players: IPlayer[], size = 4) {
+  constructor (players: IPlayer[], size: number = 4) {
     this.size = size
     this.playerList = players
     this.dealer = new Dealer()

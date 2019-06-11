@@ -19,9 +19,9 @@ class Player implements IPlayer {
   public name: string
   public type: PlayerType
   public cardStack: ICard[]
-  public score: number
+  public score = 0
 
-  constructor (name: string, type: PlayerType) {
+  constructor (name: string, type: PlayerType = 'Player') {
     this.name = name
     this.type = type
   }

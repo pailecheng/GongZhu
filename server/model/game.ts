@@ -11,8 +11,10 @@ class Game implements IGame {
   public ID = uuid()
   public rooms: IRoom[]
   protected waitingPlayers: IPlayer[]
+  protected $socket: SocketIO.Socket
 
-  constructor () {
+  constructor (socket: SocketIO.Socket) {
+    this.$socket = socket
   }
 
   openRoom (): void {
