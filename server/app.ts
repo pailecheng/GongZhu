@@ -9,7 +9,7 @@ import Game from './model/game'
 
 const app = express()
 const httpServer = new http.Server(app)
-const io: SocketIO.Server = SocketIO(httpServer)
+const io: SocketIO.Server = SocketIO(httpServer, { 'origins': '*:*' })
 const port = process.env.PORT || 3000
 
 export const game = new Game()
