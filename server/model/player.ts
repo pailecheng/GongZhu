@@ -14,6 +14,7 @@ export interface IPlayer {
   score?: number
   getCard: Function
   setCard: Function
+  socket: SocketIO.Socket
 }
 
 class Player implements IPlayer {
@@ -22,10 +23,12 @@ class Player implements IPlayer {
   public type: PlayerType
   public cardStack: ICard[] = []
   public score = 0
+  public socket: SocketIO.Socket
 
-  constructor (name: string, type: PlayerType = 'Player') {
+  constructor (name: string, socket: SocketIO.Socket, type: PlayerType = 'Player') {
     this.name = name
     this.type = type
+    this.socket = socket
   }
 
   public getCard (card: ICard): void {

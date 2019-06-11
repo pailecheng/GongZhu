@@ -31,7 +31,7 @@ class Game implements IGame {
 
     let targetRoom = this.rooms[this.rooms.length - 1]
 
-    const player = new Player(playerName)
+    const player = new Player(playerName, socket)
     targetRoom.join(player)
     socket.join(targetRoom.ID)
     socket.to(targetRoom.ID).emit('INFO', `${player.name} joined the room.`)
