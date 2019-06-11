@@ -12,35 +12,36 @@ class Game implements IGame {
   public ID = uuid()
   public rooms: IRoom[] = []
   public $socket: SocketIO.Socket
-  protected waitingPlayers: IPlayer[] = []
 
   constructor (socket: SocketIO.Socket) {
     this.$socket = socket
   }
 
-  openRoom (): void {
-    const room = new Room(this.waitingPlayers, this.$socket)
+  openRoom (): Room {
+    const room = new Room(this.$socket)
     this.rooms.push(room)
     this.$socket.emit('ROOM', room.ID)
+    console.info('\n\n[ROOM]', '======================================================================')
     console.info('[ROOM]', `ID: ${room.ID}`)
-    console.info('[ROOM]', '===================================')
-    console.info('[ROOM]', room.playerList.map((player) => (`${player.name} - ID: ${player.ID}`)).join('\n[ROOM] '))
-    console.info('[ROOM]', '===================================')
+    console.info('[ROOM]', '----------------------------------------------------------------------')
 
-    this.clearWaitingList()
+    return room
   }
 
-  goWaitingList (player: IPlayer): void {
-    this.waitingPlayers.push(player)
-
-    if (this.waitingPlayers.length === 4) {
+  joinRoom (player: IPlayer): void {
+    if (this.rooms.length === 0) {
       this.openRoom()
     }
-  }
 
-  clearWaitingList (): void {
-    while (this.waitingPlayers.length > 0) {
-      this.waitingPlayers.pop()
+    let targetRoom = this.rooms[this.rooms.length - 1]
+
+    this.$socket.join(targetRoom.ID)
+    console.info('[JOIN]', `${player.name} - ID: ${player.ID}`)
+    targetRoom.join(player)
+
+    if (targetRoom.playerList.length === 4) {
+      console.info('[ROOM]', '======================================================================\n\n')
+      this.openRoom()
     }
   }
 }
