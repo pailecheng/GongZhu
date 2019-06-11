@@ -35,7 +35,7 @@ class Dealer implements IDealer {
       setTimeout(() => {
         players[index % 4].getCard(card)
         players[Math.abs(index % 4 - 3)].socket.to(players[index % 4].socket.client.id).emit('CARD', players[index % 4].cardStack.map(card => (card.ID)))
-      }, index * 100)
+      }, index * 50)
     })
   }
 }
