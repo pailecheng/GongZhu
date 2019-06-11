@@ -24,6 +24,12 @@ class Room implements IRoom {
     this.playerList = players
     this.dealer = new Dealer(this.$socket)
     this.$socket = socket
+
+  }
+
+  ready () {
+    this.$socket.emit(`ROOM-${this.ID}`, 'READY')
+    this.dealer.deal()
   }
 }
 

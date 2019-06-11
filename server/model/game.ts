@@ -5,13 +5,14 @@ import { IPlayer } from './player'
 export interface IGame {
   ID: UUID
   rooms: IRoom[]
+  $socket: SocketIO.Socket
 }
 
 class Game implements IGame {
   public ID = uuid()
   public rooms: IRoom[] = []
+  public $socket: SocketIO.Socket
   protected waitingPlayers: IPlayer[] = []
-  protected $socket: SocketIO.Socket
 
   constructor (socket: SocketIO.Socket) {
     this.$socket = socket
