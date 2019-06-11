@@ -3,13 +3,26 @@
     <input type="text" v-model="player.name">
     <button @click="joinGame()">Join Game</button>
     <p>Message: {{ msg }}</p>
-    <img v-for="card in cardStack" :key="card" :src="`http://localhost:3000/img/card/${card}/${room}`" alt="">
+    <div class="card-container">
+      <Card
+        v-for="card in cardStack"
+        :key="card"
+        :cardId="card"
+        :roomId="room"
+      />
+    </div>
   </div>
 </template>
 
 <script>
+import Card from './Card'
+
 export default {
   name: 'Playground',
+
+  components: {
+    Card
+  },
 
   data () {
     return {
