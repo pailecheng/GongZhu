@@ -13,9 +13,8 @@ const initConnection = (socket: SocketIO.Socket) => {
   })
 }
 
-const playerJoin = (data: IPlayer) => {
-  const player = new Player(data.name, game.$socket, data.ID, data.type)
-  game.joinRoom(player)
+const playerJoin = (data: IPlayer['name']) => {
+  game.joinRoom(data)
 }
 
 export {

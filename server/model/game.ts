@@ -1,6 +1,6 @@
 import uuid, { UUID } from '../util/uuid'
 import Room, { IRoom } from './room'
-import { IPlayer } from './player'
+import Player, { IPlayer } from './player'
 
 export interface IGame {
   ID: UUID
@@ -20,7 +20,6 @@ class Game implements IGame {
   openRoom (): Room {
     const room = new Room(this.$socket)
     this.rooms.push(room)
-    this.$socket.emit('ROOM', room.ID)
     console.info('\n\n[ROOM]', '======================================================================')
     console.info('[ROOM]', `ID: ${room.ID}`)
     console.info('[ROOM]', '----------------------------------------------------------------------')
@@ -28,18 +27,22 @@ class Game implements IGame {
     return room
   }
 
-  joinRoom (player: IPlayer): void {
+  public joinRoom (playerName: IPlayer['name']): void {
     if (this.rooms.length === 0) {
       this.openRoom()
     }
 
     let targetRoom = this.rooms[this.rooms.length - 1]
 
-    this.$socket.join(targetRoom.ID)
-    console.info('[JOIN]', `${player.name} - ID: ${player.ID}`)
+    const player = new Player(playerName)
     targetRoom.join(player)
+    this.$socket.join(targetRoom.ID)
+    this.$socket.to(targetRoom.ID).emit('info', `${player.name} joined the room.`)
+    console.info('[JOIN]', `${player.name} - ID: ${player.ID}`)
 
     if (targetRoom.playerList.length === 4) {
+      targetRoom.ready()
+      this.$socket.to(targetRoom.ID).emit('start', targetRoom.ID)
       console.info('[ROOM]', '======================================================================\n\n')
       this.openRoom()
     }

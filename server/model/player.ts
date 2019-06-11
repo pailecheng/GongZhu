@@ -12,6 +12,8 @@ export interface IPlayer {
   type: PlayerType
   cardStack?: ICard[]
   score?: number
+  getCard: Function
+  setCard: Function
 }
 
 class Player implements IPlayer {
@@ -20,15 +22,10 @@ class Player implements IPlayer {
   public type: PlayerType
   public cardStack: ICard[] = []
   public score = 0
-  protected $socket: SocketIO.Socket
 
-  constructor (name: string, socket: SocketIO.Socket, payloadId: UUID, type: PlayerType = 'Player') {
+  constructor (name: string, type: PlayerType = 'Player') {
     this.name = name
     this.type = type
-    this.$socket = socket
-    this.$socket.emit(`PLAYER-${payloadId}`, {
-      id: this.ID
-    })
   }
 
   public getCard (card: ICard): void {

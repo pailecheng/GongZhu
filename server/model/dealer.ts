@@ -1,6 +1,6 @@
 import uuid, { UUID } from '../util/uuid'
 import Card, { ICard } from './card'
-import Player from './player'
+import { IPlayer } from './player'
 
 export interface IDealer {
   ID: UUID
@@ -32,9 +32,9 @@ class Dealer implements IDealer {
     return cardSets.sort(() => (Math.random()))
   }
 
-  public deal (players: Player[]) {
+  public deal (players: IPlayer[]) {
     this.cardSets.forEach((card, index) => {
-      players[index].getCard(card)
+      players[index % 4].getCard(card)
     })
   }
 }

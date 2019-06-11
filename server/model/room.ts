@@ -28,12 +28,11 @@ class Room implements IRoom {
 
   }
 
-  ready (): void {
-    this.$socket.emit(`ROOM-${this.ID}`, 'READY')
-    this.dealer.deal()
+  public ready (): void {
+    this.dealer.deal(this.playerList)
   }
 
-  join (player: IPlayer): void {
+  public join (player: IPlayer): void {
     this.playerList.push(player)
   }
 }
