@@ -9,8 +9,8 @@ export interface IGame {
 
 class Game implements IGame {
   public ID = uuid()
-  public rooms: IRoom[]
-  protected waitingPlayers: IPlayer[]
+  public rooms: IRoom[] = []
+  protected waitingPlayers: IPlayer[] = []
   protected $socket: SocketIO.Socket
 
   constructor (socket: SocketIO.Socket) {
