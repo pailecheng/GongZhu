@@ -1,52 +1,44 @@
 <template>
   <div>
-    <input type="text" v-model="playerName">
+    <input type="text" v-model="player.name">
     <button @click="joinGame()">Join Game</button>
-    Room: {{ room }}
+    <p>Message: {{ msg }}</p>
+    <img v-for="card in cardStack" :key="card" :src="`http://localhost:3000/img/card/${card}/${room}`" alt="">
   </div>
 </template>
 
 <script>
-import uuid from 'uuid/v1'
-
 export default {
   name: 'Playground',
 
   data () {
     return {
-      playerName: '',
-      room: ''
+      player: {
+        name: ''
+      },
+      room: '',
+      msg: '',
+      cardStack: ''
     }
   },
 
-  sockets: {
-    connect () {
-      console.log('socket connected')
-    }
+  mounted () {
+    this.sockets.subscribe('INFO', data => {
+      this.msg = data
+    })
+
+    this.sockets.subscribe('START', data => {
+      this.room = data
+    })
+
+    this.sockets.subscribe('CARD', data => {
+      this.cardStack = data
+    })
   },
 
   methods: {
     joinGame () {
-      const id = uuid()
-      this.$socket.emit('JOIN', {
-        name: this.playerName,
-        id
-      })
-      this.sockets.subscribe(`PLAYER-${id}`, data => {
-        this.setChannel(data.id)
-      })
-    },
-
-    setChannel (id) {
-      this.sockets.subscribe(`PLAYER-${id}`)
-      this.sockets.subscribe('ROOM', data => {
-        this.joinRoom(data)
-      })
-    },
-
-    joinRoom (data) {
-      this.sockets.unsubscribe('ROOM')
-      this.sockets.subscribe(`ROOM-${data}`)
+      this.$socket.emit('JOIN', this.player.name)
     }
   }
 }
