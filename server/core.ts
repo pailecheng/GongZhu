@@ -10,8 +10,8 @@ const initConnection = (socket: SocketIO.Socket) => {
 
 const playerJoin = (playerName: IPlayer['name'], playerType: IPlayer['type']) => {
   const player = new Player(playerName, playerType)
-  game.goWaitingList(player)
   console.info('[Player Join]', `${player.name} - ID: ${player.ID}`)
+  game.goWaitingList(player)
 }
 
 export {

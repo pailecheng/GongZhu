@@ -20,6 +20,11 @@ class Game implements IGame {
   openRoom (): void {
     const room = new Room(this.waitingPlayers)
     this.rooms.push(room)
+    this.$socket.emit('ROOM', room.ID)
+    console.info('[ROOM]', `ID: ${room.ID}`)
+    console.info('[ROOM]', '===================================')
+    console.info('[ROOM]', room.playerList.map((player) => (player.name)).join('\n[ROOM] '))
+    console.info('[ROOM]', '===================================')
   }
 
   goWaitingList (player: IPlayer): void {
