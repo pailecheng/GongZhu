@@ -1,12 +1,18 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <Playground />
   </div>
 </template>
 
 <script>
+import components from '@/components'
+
 export default {
-  name: 'App'
+  name: 'App',
+
+  components: {
+    ...components
+  }
 }
 </script>
 
