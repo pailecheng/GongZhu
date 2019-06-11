@@ -18,7 +18,7 @@ class Player implements IPlayer {
   public ID = uuid()
   public name: string
   public type: PlayerType
-  public cardStack: ICard[]
+  public cardStack: ICard[] = []
   public score = 0
 
   constructor (name: string, type: PlayerType = 'Player') {

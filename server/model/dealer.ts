@@ -6,6 +6,7 @@ export interface IDealer {
   ID: UUID
   counter: number
   originCardSets: ICard[]
+  deal: Function
 }
 
 class Dealer implements IDealer {
@@ -13,8 +14,10 @@ class Dealer implements IDealer {
   public counter = 0
   public originCardSets: ICard[]
   protected cardSets: ICard[]
+  protected $socket: SocketIO.Socket
 
-  constructor () {
+  constructor (socket: SocketIO.Socket) {
+    this.$socket = socket
     this.originCardSets = this.generateCard()
     this.cardSets = this.shuffle(this.originCardSets)
   }

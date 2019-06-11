@@ -18,7 +18,7 @@ class Game implements IGame {
   }
 
   openRoom (): void {
-    const room = new Room(this.waitingPlayers)
+    const room = new Room(this.waitingPlayers, this.$socket)
     this.rooms.push(room)
     this.$socket.emit('ROOM', room.ID)
     console.info('[ROOM]', `ID: ${room.ID}`)
