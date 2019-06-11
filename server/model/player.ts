@@ -1,6 +1,6 @@
 import uuid, { UUID } from '../util/uuid'
 import _ from 'lodash'
-import { ICard } from './card';
+import { ICard } from './card'
 
 export type PlayerType =
   'Player' |
@@ -26,11 +26,11 @@ class Player implements IPlayer {
     this.type = type
   }
 
-  public getCard (card: ICard) {
+  public getCard (card: ICard): void {
     this.cardStack.push(card)
   }
 
-  public setCard (card: ICard, targetStack: ICard[]) {
+  public setCard (card: ICard, targetStack: ICard[]): void {
     const selected = _.remove(this.cardStack, (item) => {
       return item.ID === card.ID
     })[0]
