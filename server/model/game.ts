@@ -23,8 +23,10 @@ class Game implements IGame {
     this.$socket.emit('ROOM', room.ID)
     console.info('[ROOM]', `ID: ${room.ID}`)
     console.info('[ROOM]', '===================================')
-    console.info('[ROOM]', room.playerList.map((player) => (player.name)).join('\n[ROOM] '))
+    console.info('[ROOM]', room.playerList.map((player) => (`${player.name} - ID: ${player.ID}`)).join('\n[ROOM] '))
     console.info('[ROOM]', '===================================')
+
+    this.clearWaitingList()
   }
 
   goWaitingList (player: IPlayer): void {
