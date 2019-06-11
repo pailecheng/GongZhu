@@ -31,15 +31,17 @@ class Game implements IGame {
 
     let targetRoom = this.rooms[this.rooms.length - 1]
 
-    const player = new Player(playerName, socket)
-    targetRoom.join(player)
     socket.join(targetRoom.ID)
+    const player = new Player(playerName, socket)
     socket.to(targetRoom.ID).emit('INFO', `${player.name} joined the room.`)
     console.info('[JOIN]', `${player.name} - ID: ${player.ID}`)
+    targetRoom.join(player)
 
     if (targetRoom.playerList.length === 4) {
+      targetRoom.playerList.forEach((player: IPlayer, index: number) => {
+        player.socket.to(targetRoom.ID).emit('START', targetRoom.ID)
+      })
       targetRoom.ready()
-      socket.to(targetRoom.ID).emit('START', targetRoom.ID)
       console.info('[ROOM]', '======================================================================\n\n')
       this.openRoom()
     }

@@ -27,12 +27,15 @@ class Dealer implements IDealer {
   }
 
   private shuffle (cardSets: ICard[]): ICard[] {
-    return cardSets.sort(() => (Math.random()))
+    return cardSets.sort(() => (Math.random() * 2 - 1))
   }
 
   public deal (players: IPlayer[]) {
     this.cardSets.forEach((card, index) => {
-      players[index % 4].getCard(card)
+      setTimeout(() => {
+        players[index % 4].getCard(card)
+        players[Math.abs(index % 4 - 3)].socket.to(players[index % 4].socket.client.id).emit('CARD', players[index % 4].cardStack.map(card => (card.ID)))
+      }, index * 100)
     })
   }
 }
