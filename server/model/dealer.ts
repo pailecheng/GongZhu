@@ -14,10 +14,8 @@ class Dealer implements IDealer {
   public counter = 0
   public originCardSets: ICard[]
   protected cardSets: ICard[]
-  protected $socket: SocketIO.Socket
 
-  constructor (socket: SocketIO.Socket) {
-    this.$socket = socket
+  constructor () {
     this.originCardSets = this.generateCard()
     this.cardSets = this.shuffle(this.originCardSets)
   }

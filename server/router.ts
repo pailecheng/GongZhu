@@ -10,7 +10,7 @@ import { ICard } from './model/card'
 const router = express.Router()
 
 router
-  .get('/:room/card/:id', (req: express.Request, res: express.Response): void => {
+  .get('/img/card/:id/:room', (req: express.Request, res: express.Response): void => {
     try {
       const roomId: UUID = req.params.room
       const cardId: UUID = req.params.id

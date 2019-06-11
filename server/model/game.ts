@@ -5,20 +5,17 @@ import Player, { IPlayer } from './player'
 export interface IGame {
   ID: UUID
   rooms: IRoom[]
-  $socket: SocketIO.Socket
 }
 
 class Game implements IGame {
   public ID = uuid()
   public rooms: IRoom[] = []
-  public $socket: SocketIO.Socket
 
-  constructor (socket: SocketIO.Socket) {
-    this.$socket = socket
+  constructor () {
   }
 
   openRoom (): Room {
-    const room = new Room(this.$socket)
+    const room = new Room()
     this.rooms.push(room)
     console.info('\n\n[ROOM]', '======================================================================')
     console.info('[ROOM]', `ID: ${room.ID}`)
@@ -27,7 +24,7 @@ class Game implements IGame {
     return room
   }
 
-  public joinRoom (playerName: IPlayer['name']): void {
+  public joinRoom (playerName: IPlayer['name'], socket: SocketIO.Socket): void {
     if (this.rooms.length === 0) {
       this.openRoom()
     }
@@ -36,13 +33,13 @@ class Game implements IGame {
 
     const player = new Player(playerName)
     targetRoom.join(player)
-    this.$socket.join(targetRoom.ID)
-    this.$socket.to(targetRoom.ID).emit('info', `${player.name} joined the room.`)
+    socket.join(targetRoom.ID)
+    socket.to(targetRoom.ID).emit('INFO', `${player.name} joined the room.`)
     console.info('[JOIN]', `${player.name} - ID: ${player.ID}`)
 
     if (targetRoom.playerList.length === 4) {
       targetRoom.ready()
-      this.$socket.to(targetRoom.ID).emit('start', targetRoom.ID)
+      socket.to(targetRoom.ID).emit('START', targetRoom.ID)
       console.info('[ROOM]', '======================================================================\n\n')
       this.openRoom()
     }

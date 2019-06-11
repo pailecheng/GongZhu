@@ -19,13 +19,10 @@ class Room implements IRoom {
   public playerList: IPlayer[] = []
   public cardStack: ICard[] = []
   public dealer: IDealer
-  protected $socket: SocketIO.Socket
 
-  constructor (socket: SocketIO.Socket, size: number = 4) {
+  constructor (size: number = 4) {
     this.size = size
-    this.dealer = new Dealer(this.$socket)
-    this.$socket = socket
-
+    this.dealer = new Dealer()
   }
 
   public ready (): void {
