@@ -62,7 +62,7 @@ class Dealer implements IDealer {
     if (room.cardStack.length === 4) {
       this.firstPlayerIndex = room.cardStack.map((card, index) => ({
         score: this.judgeStand.indexOf(card.no),
-        playerIndex: index
+        playerIndex: (index + this.firstPlayerIndex + 1) % 4
       })).sort((a, b) => (a.score > b.score ? 1 : -1))[0].playerIndex
 
       this.firstPlayer = room.playerList[this.firstPlayerIndex]
