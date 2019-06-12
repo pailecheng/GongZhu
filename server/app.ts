@@ -12,7 +12,7 @@ const port = process.env.PORT || 3000
 const io: SocketIO.Server = SocketIO(httpServer)
 
 app.use(cors({
-  origin: ['http://localhost:8080', 'http://localhost:3000'],
+origin: ['http://localhost:8080', 'http://localhost:3000', 'https://pig-game.aries0d0f.me'],
   credentials: true
 }))
 app.set('port', port)

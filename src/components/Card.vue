@@ -19,7 +19,7 @@ export default {
 
   computed: {
     cardSrc () {
-      return this.roomId ? `http://localhost:3000/img/card/${this.cardId}/${this.roomId}` : 'http://localhost:3000/img/card/covered'
+      return this.roomId ? `https://pig-game.aries0d0f.me/img/card/${this.cardId}/${this.roomId}` : 'https://pig-game.aries0d0f.me/img/card/covered'
     }
   }
 }

@@ -10,7 +10,7 @@ Vue.use(VueDraggable)
 
 Vue.use(new VueSocketIO({
   debug: true,
-  connection: SocketIO('http://localhost:3000'),
+  connection: SocketIO('https://pig-game.aries0d0f.me'),
   vuex: {
     store,
     actionPrefix: 'SOCKET_',

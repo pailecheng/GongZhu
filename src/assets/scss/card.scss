@@ -16,7 +16,7 @@
   margin-right: -30px;
   transform-origin: center;
   transition: all ease-in-out .3s;
-  content: url('http://localhost:3000/img/card/covered');
+  content: url('https://pig-game.aries0d0f.me/img/card/covered');
 
   &.dealing {
     position: absolute;
@@ -41,7 +41,7 @@
 
   50% {
     transform: scale(0, 1);
-    content: url('http://localhost:3000/img/card/covered');
+    content: url('https://pig-game.aries0d0f.me/img/card/covered');
   }
 
   100% {
