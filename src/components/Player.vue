@@ -1,13 +1,15 @@
 <template>
   <div class="player">
     <div
-      :class="{ 'yours': yours }"
+      :class="{ 'yours': playerFinal ? false : yours }"
       class="card-container"
     >
       <Card
         v-for="(card, index) in cardLength"
         :key="`${name}-${card}`"
         :class="{ 'dealing': index + 1 === cardLength && cardLength < 13, 'open': cardLength >= 13 - round }"
+        :cardId="playerFinal ? playerFinal[index] : null"
+        :roomId="playerFinal ? room : null"
       />
     </div>
   </div>
@@ -37,6 +39,16 @@ export default {
     yours: {
       default: false,
       type: Boolean
+    },
+
+    playerFinal: {
+      default: null,
+      type: Array
+    },
+
+    room: {
+      default: null,
+      type: String
     }
   },
 

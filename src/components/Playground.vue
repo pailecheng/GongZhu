@@ -31,10 +31,12 @@
         :cardLength="round === 0 ? cardStack.length : player.cardStackCount + player.archivedStackCount"
         :round="round"
         :yours="player.turn"
+        :room="room"
+        :playerFinal="playerFinal ? playerFinal[index] : null"
       />
       <div class="player player-self">
         <div
-          :class="{ 'yours': yours }"
+          :class="{ 'yours': playerFinal ? false : yours, 'final': playerFinal }"
           class="card-container"
         >
           <Card
@@ -90,6 +92,7 @@ export default {
       roomStack: [],
       gamming: false,
       start: false,
+      playerFinal: null,
       options: {
         dropzoneSelector: '.stack',
         draggableSelector: '.player-self>.card-container>.card.open.draggable',
@@ -122,6 +125,10 @@ export default {
 
     this.sockets.subscribe('ARCHIVED_CARD', data => {
       this.archivedCardStack = data
+    })
+
+    this.sockets.subscribe('FINAL', data => {
+      this.playerFinal = data.filter(data => (this.player.id !== data.playerId)).map(_ => (_.final))
     })
 
     this.sockets.subscribe('ROOM', data => {
