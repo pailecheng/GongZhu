@@ -1,0 +1,24 @@
+.player {
+  &-self {
+    grid-area: myself;
+  }
+
+  &-1 {
+    grid-area: player1;
+    transform: rotate(90deg);
+    width: 96px;
+  }
+
+  &-2 {
+    grid-area: player2;
+  }
+
+  &-3 {
+    grid-area: player3;
+    transform: rotate(-90deg);
+    width: 96px;
+  }
+
+  display: flex;
+  justify-content: center;
+}
