@@ -4,7 +4,7 @@
       <input type="text" v-model="player.name">
       <button @click="joinGame()">Join Game</button>
     </header>
-    <div v-else class="msg-container">
+    <div v-else-if="!start" class="msg-container">
       <p class="msg">Message: {{ msg }}</p>
     </div>
     <div
@@ -78,6 +78,7 @@ export default {
       cardStack: '',
       roomStack: [],
       gamming: false,
+      start: false,
       options: {
         dropzoneSelector: '.stack',
         draggableSelector: '.player-self>.card-container>.card.open',
@@ -101,6 +102,7 @@ export default {
     this.sockets.subscribe('START', data => {
       this.room = data.roomId
       this.otherPlayer = data.otherPlayer.filter(data => (this.player.id !== data.playerId))
+      this.start = true
     })
 
     this.sockets.subscribe('CARD', data => {
