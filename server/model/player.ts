@@ -50,6 +50,8 @@ class Player implements IPlayer {
     originStack.forEach(card => {
       this.archivedCard.push(card)
     })
+
+    this.socket.emit('ARCHIVED_CARD', this.archivedCard.map(card => (card.ID)))
   }
 }
 

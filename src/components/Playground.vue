@@ -28,7 +28,7 @@
         :key="`player-${index}`"
         :class="`player-${index + 1}`"
         :name="player.name"
-        :cardLength="round === 0 ? cardStack.length : player.cardStackCount"
+        :cardLength="round === 0 ? cardStack.length : player.cardStackCount + player.archivedStackCount"
         :round="round"
         :yours="player.turn"
       />
@@ -43,8 +43,18 @@
             :cardId="card"
             :roomId="room"
             :class="{ 'dealing': index + 1 === cardStack.length && cardStack.length < 13, 'open': cardStack.length >= 13 - round }"
+            class="draggable"
             :id="card"
             draggable="true"
+          />
+          <Card
+            v-for="card in archivedCardStack"
+            :key="card"
+            :cardId="card"
+            :roomId="room"
+            :id="card"
+            class="open archived"
+            draggable="false"
           />
         </div>
       </div>
@@ -76,12 +86,13 @@ export default {
       yours: false,
       msg: '',
       cardStack: '',
+      archivedCardStack: [],
       roomStack: [],
       gamming: false,
       start: false,
       options: {
         dropzoneSelector: '.stack',
-        draggableSelector: '.player-self>.card-container>.card.open',
+        draggableSelector: '.player-self>.card-container>.card.open.draggable',
         excludeOlderBrowsers: true,
         multipleDropzonesItemsDraggingEnabled: true,
         showDropzoneAreas: true,
@@ -107,6 +118,10 @@ export default {
 
     this.sockets.subscribe('CARD', data => {
       this.cardStack = data
+    })
+
+    this.sockets.subscribe('ARCHIVED_CARD', data => {
+      this.archivedCardStack = data
     })
 
     this.sockets.subscribe('ROOM', data => {
