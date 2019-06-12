@@ -20,6 +20,7 @@ class Dealer implements IDealer {
   protected firstPlayerIndex: number
   protected cardSets: ICard[]
   protected judgeStand = [ 'A', 'K', 'Q', 'J', '10', '9', '8', '7', '6', '5', '4', '3', '2' ]
+  protected suitIndex = ['Spade', 'Heart', 'Club', 'Diamond']
 
   constructor () {
     this.originCardSets = this.generateCard()
@@ -42,8 +43,7 @@ class Dealer implements IDealer {
       setTimeout(() => {
         players[index % 4].getCard(card)
         players[index % 4].cardStack = players[index % 4].cardStack.sort((a, b) => {
-          const suitIndex = ['Spade', 'Heart', 'Club', 'Diamond']
-          return (suitIndex.indexOf(a.suit) + 1) * 100 + Math.floor((a.serialNum - 1) % 13) > (suitIndex.indexOf(b.suit) + 1) * 100 + Math.floor((b.serialNum - 1) % 13) ? 1 : -1
+          return (this.suitIndex.indexOf(a.suit) + 1) * 100 + Math.floor((a.serialNum - 1) % 13) > (this.suitIndex.indexOf(b.suit) + 1) * 100 + Math.floor((b.serialNum - 1) % 13) ? 1 : -1
         })
         players[Math.abs(index % 4 - 3)].socket.to(players[index % 4].socket.client.id).emit('CARD', players[index % 4].cardStack.map(card => (card.ID)))
       }, index * 50)
