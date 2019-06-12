@@ -10,6 +10,16 @@ import { ICard } from './model/card'
 const router = express.Router()
 
 router
+  .get('/img/card/covered', (req: express.Request, res: express.Response): void => {
+    try {
+      res.status(200)
+      res.sendFile(path.resolve(__dirname, './public/img/0.gif'))
+    } catch (error) {
+      res.status(404)
+      res.send(error)
+      throw new Error(error)
+    }
+  })
   .get('/img/card/:id/:room', (req: express.Request, res: express.Response): void => {
     try {
       const roomId: UUID = req.params.room
