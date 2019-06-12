@@ -12,4 +12,10 @@
   background-color: $green;
   border: 2rem solid $wood;
   padding: 1rem;
+
+
+  .stack {
+    grid-area: stack;
+    z-index: 1000;
+  }
 }

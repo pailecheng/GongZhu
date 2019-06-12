@@ -68,6 +68,7 @@
     "socket.io-client": "^2.2.0",
     "uglifyjs-webpack-plugin": "^1.1.1",
     "url-loader": "^0.5.8",
+    "vue-draggable": "^2.0.2",
     "vue-loader": "^13.3.0",
     "vue-socket.io": "^3.0.7",
     "vue-style-loader": "^3.0.1",
