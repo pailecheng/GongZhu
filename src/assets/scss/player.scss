@@ -1,24 +1,69 @@
 .player {
   &-self {
     grid-area: myself;
+
+    .card {
+      &.dealing {
+        transform: perspective(500px)
+          translate3d(0, calc(-96px * 2.5 - 1rem), 100px);
+      }
+
+      &.open {
+        animation-delay: 1000ms;
+      }
+    }
   }
 
   &-1 {
     grid-area: player1;
-    transform: rotate(90deg);
+    transform: rotate(90deg) translateX(-15px);
     width: 96px;
+
+    .card {
+      &.dealing {
+        transform: perspective(500px)
+          translate3d(0, calc(-96px * 4 - 2.5rem), 100px) rotate(-90deg);
+      }
+
+      &.open {
+        animation-delay: 1200ms;
+      }
+    }
   }
 
   &-2 {
     grid-area: player2;
+
+    .card {
+      &.dealing {
+        transform: perspective(500px)
+          translate3d(0, calc(96px * 2.5 + 1rem), 100px);
+      }
+
+      &.open {
+        animation-delay: 1400ms;
+      }
+    }
   }
 
   &-3 {
     grid-area: player3;
-    transform: rotate(-90deg);
+    transform: rotate(-90deg) translateX(-15px);
     width: 96px;
+
+    .card {
+      &.dealing {
+        transform: perspective(500px)
+          translate3d(0, calc(-96px * 4 - 1rem), 100px) rotate(90deg);
+      }
+
+      &.open {
+        animation-delay: 1600ms;
+      }
+    }
   }
 
+  transform-origin: center;
   display: flex;
   justify-content: center;
 }

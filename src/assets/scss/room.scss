@@ -1,11 +1,15 @@
 .room {
   display: grid;
-  height: calc(100% - 2rem * 2);
-  width: calc(100% - 10rem * 2);
+  height: calc(96px * 8 + 2rem * 2);
+  width: calc(96px * 12 + 2rem * 2);
   grid-template-areas:
     "conner0 player2 conner1"
     "player1 stack player3"
     "conner2 myself conner3";
   grid-template-columns: 96px 1fr 96px;
   grid-template-rows: 96px 1fr 96px;
+  box-sizing: border-box;
+  background-color: $green;
+  border: 2rem solid $wood;
+  padding: 1rem;
 }

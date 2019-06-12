@@ -6,8 +6,40 @@
     align-items: center;
   }
 
-  position: relative;
+  position: absolute;
   height: 96px;
   width: 71px;
   margin-right: -30px;
+  transform-origin: center;
+  transition: all ease-in-out .3s;
+  content: url('http://localhost:3000/img/card/covered');
+
+  &.dealing {
+    position: absolute;
+    transition: all ease-in-out .3s;
+  }
+
+  &.open {
+    animation: openAnimate .3s ease-in-out;
+    animation-fill-mode: forwards;
+
+  }
+}
+
+@keyframes openAnimate {
+  0% {
+    position: absolute;
+    transform: scale(1, 1);
+  }
+
+  50% {
+    transform: scale(0, 1);
+    content: url('http://localhost:3000/img/card/covered');
+  }
+
+  100% {
+    position: relative;
+    transform: scale(1, 1);
+    content: initial;
+  }
 }

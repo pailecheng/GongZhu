@@ -2,8 +2,9 @@
   <div class="player">
     <div class="card-container">
       <Card
-        v-for="card in 13"
+        v-for="(card, index) in cardLength"
         :key="`${name}-${card}`"
+        :class="{ 'dealing': index + 1 === cardLength && cardLength < 13, 'open': cardLength === 13 }"
       />
     </div>
   </div>
@@ -18,6 +19,11 @@ export default {
   props: {
     name: {
       type: String
+    },
+
+    cardLength: {
+      default: 0,
+      type: Number
     }
   },
 

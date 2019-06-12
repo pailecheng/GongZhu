@@ -12,14 +12,16 @@
         v-for="player in 3"
         :key="`player-${player}`"
         :class="`player-${player}`"
+        :cardLength="cardStack.length"
       />
       <div class="player player-self">
         <div class="card-container">
           <Card
-            v-for="card in cardStack"
+            v-for="(card, index) in cardStack"
             :key="card"
             :cardId="card"
-            :roomId="room"
+            :roomId="cardStack.length === 13 ? room : null"
+            :class="{ 'dealing': index + 1 === cardStack.length && cardStack.length < 13, 'open': cardStack.length === 13 }"
           />
         </div>
       </div>
