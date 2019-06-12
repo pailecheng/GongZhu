@@ -41,10 +41,10 @@ class Dealer implements IDealer {
     this.cardSets.forEach((card, index) => {
       setTimeout(() => {
         players[index % 4].getCard(card)
-        // players[index % 4].cardStack = players[index % 4].cardStack.sort((a, b) => {
-        //   const suitIndex = ['Spade', 'Heart', 'Club', 'Diamond']
-        //   return (suitIndex.indexOf(a.suit) + 1) * 13 + Math.floor(a.serialNum / 13) > (suitIndex.indexOf(b.suit) + 1) * 13 + Math.floor(b.serialNum / 13) ? 1 : -1
-        // })
+        players[index % 4].cardStack = players[index % 4].cardStack.sort((a, b) => {
+          const suitIndex = ['Spade', 'Heart', 'Club', 'Diamond']
+          return (suitIndex.indexOf(a.suit) + 1) * 100 + Math.floor((a.serialNum - 1) % 13) > (suitIndex.indexOf(b.suit) + 1) * 100 + Math.floor((b.serialNum - 1) % 13) ? 1 : -1
+        })
         players[Math.abs(index % 4 - 3)].socket.to(players[index % 4].socket.client.id).emit('CARD', players[index % 4].cardStack.map(card => (card.ID)))
       }, index * 50)
     })
