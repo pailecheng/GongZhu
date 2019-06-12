@@ -33,18 +33,29 @@ class Game implements IGame {
 
     socket.join(targetRoom.ID)
     const player = new Player(playerName, socket)
-    socket.to(targetRoom.ID).emit('INFO', `${player.name} joined the room.`)
+    socket.broadcast.to(targetRoom.ID).emit('INFO', `${player.name} joined the room.`)
+    socket.emit('ID', {
+      id: player.ID,
+      name: player.name
+    })
     console.info('[JOIN]', `${player.name} - ID: ${player.ID}`)
     targetRoom.join(player)
 
     if (targetRoom.playerList.length === 4) {
-      targetRoom.playerList.forEach((player: IPlayer, index: number) => {
-        player.socket.to(targetRoom.ID).emit('START', targetRoom.ID)
-      })
       targetRoom.ready()
+      targetRoom.playerList.forEach((player: IPlayer, index: number) => {
+        player.socket.to(targetRoom.ID).emit('START', {
+          roomId: targetRoom.ID,
+          ...targetRoom.sendStatus(player.ID)
+        })
+      })
       console.info('[ROOM]', '======================================================================\n\n')
       this.openRoom()
     }
+  }
+
+  public getRoom (roomId: IRoom['ID']): IRoom {
+    return this.rooms.filter(room => (room.ID === roomId))[0]
   }
 }
 

@@ -11,9 +11,11 @@ export interface IPlayer {
   name: string
   type: PlayerType
   cardStack?: ICard[]
+  archivedCard?: ICard[]
   score?: number
   getCard: Function
   setCard: Function
+  eatCard: Function
   socket: SocketIO.Socket
 }
 
@@ -22,6 +24,7 @@ class Player implements IPlayer {
   public name: string
   public type: PlayerType
   public cardStack: ICard[] = []
+  public archivedCard: ICard[] = []
   public score = 0
   public socket: SocketIO.Socket
 
@@ -35,12 +38,18 @@ class Player implements IPlayer {
     this.cardStack.push(card)
   }
 
-  public setCard (card: ICard, targetStack: ICard[]): void {
-    const selected = _.remove(this.cardStack, (item) => {
-      return item.ID === card.ID
+  public setCard (cardId: ICard['ID'], targetStack: ICard[]): void {
+    const selected = _.remove(this.cardStack, item => {
+      return item.ID === cardId
     })[0]
 
     targetStack.push(selected)
+  }
+
+  public eatCard (originStack: ICard[]): void {
+    originStack.forEach(card => {
+      this.archivedCard.push(card)
+    })
   }
 }
 
