@@ -73,6 +73,17 @@ class Dealer implements IDealer {
       this.firstPlayer.socket.broadcast.emit('ROOM', roomMsg)
       this.firstPlayer.socket.emit('ROOM', roomMsg)
       this.firstPlayer.socket.emit('YOU', '')
+
+      if (this.counter === 13) {
+        this.firstPlayer.socket.broadcast.emit('FINAL', room.playerList.map(player => ({
+          playerId: player.ID,
+          final: player.archivedCard.map(card => (card.ID))
+        })))
+        this.firstPlayer.socket.emit('FINAL', room.playerList.map(player => ({
+          playerId: player.ID,
+          final: player.archivedCard.map(card => (card.ID))
+        })))
+      }
     } else {
       this.firstPlayerIndex = (this.firstPlayerIndex + 1) % 4
       this.firstPlayer = room.playerList[this.firstPlayerIndex]

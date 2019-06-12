@@ -8,6 +8,12 @@
     &.yours {
       filter: drop-shadow(0 0 1rem $white);
     }
+
+    &.final {
+      .card.archived {
+        filter: initial;
+      }
+    }
   }
 
   position: absolute;
