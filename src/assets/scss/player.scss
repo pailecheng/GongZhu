@@ -19,6 +19,10 @@
     transform: rotate(90deg) translateX(-15px);
     width: 96px;
 
+    .player-name {
+      top: calc(50% + 96px / 1.5);
+    }
+
     .card {
       &.dealing {
         transform: perspective(500px)
@@ -33,6 +37,10 @@
 
   &-2 {
     grid-area: player2;
+
+    .player-name {
+      top: 96px * 0.2;
+    }
 
     .card {
       &.dealing {
@@ -51,6 +59,10 @@
     transform: rotate(-90deg) translateX(-15px);
     width: 96px;
 
+    .player-name {
+      top: calc(50% + 96px / 1.5);
+    }
+
     .card {
       &.dealing {
         transform: perspective(500px)
@@ -66,4 +78,10 @@
   transform-origin: center;
   display: flex;
   justify-content: center;
+
+  &-name {
+    position: absolute;
+    font-size: 24px;
+    font-weight: 500;
+  }
 }

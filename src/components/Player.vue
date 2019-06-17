@@ -1,5 +1,6 @@
 <template>
   <div class="player">
+    <h3 class="player-name">{{ name }}</h3>
     <div
       :class="{ 'yours': playerFinal ? false : yours }"
       class="card-container"
