@@ -156,8 +156,6 @@ export default {
     },
 
     dragHandling (event) {
-      event.preventDefault()
-
       if (this.yours) {
         this.yours = false
         const selected = event.items[0]
