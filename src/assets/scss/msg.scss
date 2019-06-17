@@ -1,5 +1,10 @@
 .msg {
   &-container {
     position: absolute;
+
+    h2 {
+      font-size: 28px;
+      font-weight: 500;
+    }
   }
 }

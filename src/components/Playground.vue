@@ -1,10 +1,17 @@
 <template>
   <div class="playground">
-    <header v-if="!gamming">
-      <input type="text" v-model="player.name">
+    <header id="header" v-if="!gamming">
+      <h1>🐷拱豬🐷</h1>
+      <input
+        v-model="player.name"
+        type="text"
+        placeholder="Guest"
+        @keyup.enter="joinGame()"
+      >
       <button @click="joinGame()">Join Game</button>
     </header>
     <div v-else-if="!start" class="msg-container">
+      <h2>Waiting for other players...</h2>
       <p class="msg">Message: {{ msg }}</p>
     </div>
     <div
@@ -144,7 +151,7 @@ export default {
 
   methods: {
     joinGame () {
-      this.$socket.emit('JOIN', this.player.name)
+      this.$socket.emit('JOIN', this.player.name || 'Guest')
       this.gamming = true
     },
 
