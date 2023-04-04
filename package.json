@@ -10,7 +10,6 @@
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js",
     "server": "ts-node server/app.ts",
-    "install": "npm install --python=/usr/bin/python2.7"
   },
   "dependencies": {
     "@types/cors": "^2.8.5",
@@ -25,7 +24,7 @@
     "typescript": "^3.5.1",
     "uuid": "^3.3.2",
     "vue": "^2.5.2",
-    "python": "^2.7.18"
+    "python": "~2.7.0"
   },
   "devDependencies": {
     "@types/uuid": "^3.4.4",
