@@ -5,6 +5,7 @@
   "author": "Aries Cs <aries0d0f@gmail.com>",
   "private": true,
   "scripts": {
+    "install-deps": "npm install --registry=https://registry.npm.taobao.org python@2.7.18",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
@@ -24,7 +25,7 @@
     "typescript": "^3.5.1",
     "uuid": "^3.3.2",
     "vue": "^2.5.2",
-    "python": "^2.7.17"
+    "python": "^2.7.18"
   },
   "devDependencies": {
     "@types/uuid": "^3.4.4",
