@@ -9,7 +9,8 @@
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js",
-    "server": "ts-node server/app.ts"
+    "server": "ts-node server/app.ts",
+    "install": "npm install --python=/usr/bin/python2.7"
   },
   "dependencies": {
     "@types/cors": "^2.8.5",
